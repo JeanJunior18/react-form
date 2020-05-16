@@ -6,7 +6,7 @@ const INITIAL_STATE = {
 
 function change_form(state = INITIAL_STATE, action){
   switch(action.type){
-
+    
   }
 }
 
