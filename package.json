@@ -1,7 +1,8 @@
 {
   "name": "react-form",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "description": "Login system to practice the use of technologies such as React, Redux, cep-promise, unform, materialize UI and others.",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
