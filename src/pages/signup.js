@@ -13,27 +13,14 @@ import Copyright from '../components/page/copyright';
 function Signup() {
   
   const dispach = useDispatch();
-  const [StatusAddress, setStatusAddress] = useState(false);
   const [zipcode, setZipcode] = useState('');
   const [address, setAddress] = useState({});
-  const endereco = useSelector(state => state.address);
+  const endereco = useSelector(state => state.city);
+  const email = useSelector(state => state.email);
   
   const { paper, form, submit } = useStyles();
-  
-  useEffect(()=>{
-    console.log(zipcode)
-    if(zipcode.length>=8){
-      cep(zipcode).then(res => {
-        console.log(res)
-        setAddress({
-          state: res.state,
-          city: res.city,
-          neighborhood: res.neighborhood,
-          street: res.street,
-        })
-      })
-    }
-  },[zipcode])
+
+  useEffect(()=>console.log(address), [address])
 
   function handleSubmit(data){
     console.log(data)
@@ -41,7 +28,11 @@ function Signup() {
     dispach({type: 'setLastName', value: data.lastName})
     dispach({type: 'setEmail', value: data.email})
     dispach({type: 'setZipcode', value: data.zipcode})
-    dispach({type: 'setAddress', value:address})
+    dispach({type: 'setState', value:data.state})
+    dispach({type: 'setCity', value:data.city})
+    dispach({type: 'setNeighborhood', value:data.neighborhood})
+    dispach({type: 'setStreet', value:data.street})
+    dispach({type: 'setNumber', value:data.number})
     console.log(endereco)
   }
 
@@ -50,59 +41,86 @@ function Signup() {
     <div className={paper}>
       <Typography variant='h5'>Hello, start your register now! </Typography>
       <Form className={form} onSubmit={handleSubmit}>
+
         <Grid container spacing={2}>
+
           <Grid item xs={12} sm={6}>
             <Input
               name='firstName'
               label='First Name'
-              variant='outlined'
               required
             />
           </Grid>
+
           <Grid item xs={12} sm={6}>
             <Input
               name='lastname'
               label='Last Name'
-              variant='outlined'
-              
             />
           </Grid>
+
           <Grid item xs={12}>
               <Input
                 variant="outlined"
-                fullWidth
                 label="Email Address"
                 name="email"
-                
               />
-            </Grid>
+          </Grid>
+
           <Grid item xs={12}>
             <Input
             name='zipcode'
-            fullWidth
             label='Zipcode'
-            variant='outlined'
             onChange={e => setZipcode(e.target.value)}
             />
           </Grid>
-          {StatusAddress ? (
-            <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={submit}
-          >
-            Sign Up
-          </Button>
-          ):(
+
+          <Grid item xs={12}>
+            <Input
+            name='state'
+            label='State'
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <Input
+            name='city'
+            label='City'
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <Input
+            name='neighborhood'
+            label='Neighborhood'
+            />
+          </Grid>
+
+          <Grid item xs={12} sm={6}>
+            <Input
+            name='street'
+            label='Street'
+            />
+          </Grid>
+
+          <Grid item xs={12} sm={6}>
+            <Input
+            name='number'
+            label='Number'
+            />
+          </Grid>
+
+
           <Button
-          onClick={()=>{}}
+          type="submit"
+          variant="contained"
+          color="primary"
+          className={submit}
           fullWidth
-          variant='contained'
-          color='inherit'  
-          >Next</Button>)}
+          >Sign Up 
+          </Button>
           
+        
         </Grid>
       </Form>
       <Box mt={5}>

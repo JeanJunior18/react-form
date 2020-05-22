@@ -5,7 +5,7 @@ import { useField } from '@unform/core'
 
 function UnformInput({name, label, ...rest}) {
   const inputRef = useRef(null);
-  const { fieldName, registerField } = useField(name)
+  const { fieldName, registerField, defaultValue } = useField(name)
   
   useEffect(()=>{
     registerField({
@@ -21,7 +21,9 @@ function UnformInput({name, label, ...rest}) {
       name={name}
       label={label}
       variant='outlined'
+      fullWidth
       {...rest}
+      defaultValue={defaultValue}
     />
   );
 }
