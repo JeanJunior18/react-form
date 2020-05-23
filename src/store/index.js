@@ -9,6 +9,7 @@ const INITIAL_STATE = {
   city: 'Codó',
   neighborhood: '',
   number: '',
+  activeStep: 0,
 }
 
 function change_form(state = INITIAL_STATE, action){
@@ -31,6 +32,8 @@ function change_form(state = INITIAL_STATE, action){
       return {...state, street: action.value}
     case 'setNumber':
       return {...state, number: action.value}
+    case 'setActiveStep':
+      return {...state, activeStep: action.value}
     default:
       return state
   }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import useStyles from '../../styles/styles';
 import { Form } from '@unform/web';
 import Input from '../Unform/Input';
@@ -14,7 +14,9 @@ export default function User(){
   const { form, submit } = useStyles();
   const [estado, setEstado] = useState([]);
   const [cities, setCities] = useState([])
+  const dispach = useDispatch()
   const UF = useSelector(state => state.state)
+  
   
 
   useEffect(()=>{
@@ -41,7 +43,10 @@ export default function User(){
     street: useSelector(state => state.street),
   }
 
-  function handleSubmit(data){console.log(data)}
+  function handleSubmit(data){
+    dispach({type: 'setActiveStep', value: 2})
+    console.log(data)
+  }
 
   return(
     <Form className={form} onSubmit={handleSubmit} initialData={address}>
@@ -72,29 +77,43 @@ export default function User(){
           />
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={9}>
           <Input
           name='street'
           label='Street'
           />
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={3}>
           <Input
           name='number'
           label='Number'
           />
         </Grid>
 
+        <Grid item sm={6}>
+          <Button
+          type="submit"
+          variant="contained"
+          color="inherit"
+          className={submit}
+          fullWidth
+          onClick={()=>dispach({type: 'setActiveStep', value: 0})}
+          >Back
+          </Button>
+        </Grid>
 
-        <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-        className={submit}
-        fullWidth
-        >Sign Up 
-        </Button>
+        <Grid item sm={6}>
+          <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          className={submit}
+          fullWidth
+          >Sign Up 
+          </Button>
+        </Grid>
+        
         
       
       </Grid>

@@ -1,25 +1,46 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux'
 import useStyles from '../styles/styles'
-import { 
-  Container, Typography, Grid, Button, Box
- } from '@material-ui/core'
-
+import { Container, Box, Stepper, Step, StepLabel } from '@material-ui/core'
 import Copyright from '../components/page/copyright';
 import UserForm from '../components/signup/user';
 import AddressForm from '../components/signup/address';
 
-function Signup() {
-    
-  const { paper } = useStyles();
 
+function getSteps(){
+  return ['Informações do Usuário', 'Informações de Endereço', 'Finalizar']
+}
   
+function getStepContent(stepIndex){
+  switch (stepIndex) {
+    case 0:
+      return <UserForm />
+    case 1: 
+      return <AddressForm />
+    default:
+      return 'Não encontrado'
+  }
+}
+
+export default function Signup() {
+  
+  const { paper } = useStyles();
+  const activeStep = useSelector(state => state.activeStep)
+  const steps = getSteps()
 
   return (
   <Container component='main' maxWidth='xs' >
     <div className={paper}>
-      <Typography variant='h5'>Hello, start your register now! </Typography>
-      {/* <UserForm /> */}
-      <AddressForm />
+
+      <Stepper activeStep={activeStep} alternativeLabel>
+        {steps.map( label => (
+          <Step key={label}>
+            <StepLabel>{label}</StepLabel>
+          </Step>
+        ) )}
+      </Stepper>
+      {getStepContent(activeStep)}
+
       <Box mt={5}>
         <Copyright />
       </Box>
@@ -28,5 +49,3 @@ function Signup() {
   </Container>
   );
 }
-
-export default Signup;
