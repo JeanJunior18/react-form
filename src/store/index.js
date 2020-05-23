@@ -3,10 +3,10 @@ import { createStore } from 'redux';
 const INITIAL_STATE = {
   firstName: '',
   lastName: '',
-  email: 'Email',
+  email: '',
   zipcode: '',
-  state: '',
-  city: 'Cidade',
+  state: 'MA',
+  city: 'Codó',
   neighborhood: '',
   number: '',
 }
@@ -27,6 +27,8 @@ function change_form(state = INITIAL_STATE, action){
       return {...state, city: action.value}
     case 'setNeighborhood':
       return {...state, neighborhood: action.value}
+    case 'setStreet':
+      return {...state, street: action.value}
     case 'setNumber':
       return {...state, number: action.value}
     default:
