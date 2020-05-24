@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import useStyles from '../../styles/styles';
 import { Form } from '@unform/web';
 import Input from '../Unform/Input';
 import cep from 'cep-promise';
-import { Typography, Button, Grid } from '@material-ui/core'
+import { Typography, Button, Grid, CircularProgress } from '@material-ui/core'
 
 
 export default function User(){
 
   const dispach = useDispatch()
   const { form, submit } = useStyles();
+  const [loading, setLoading] = useState(false);
 
   const data = {
     firstName: useSelector(state => state.firstName),
@@ -20,7 +21,7 @@ export default function User(){
   }
 
   function handleSubmit(data){
-    console.log(data)
+    if(!loading) setLoading(true)
     cep(data.zipcode).then(address => {
       dispach({type: 'setState', value:address.state})
       dispach({type: 'setCity', value:address.city})
@@ -33,11 +34,13 @@ export default function User(){
       dispach({type: 'setEmail', value: data.email})
       dispach({type: 'setZipcode', value: data.zipcode})
       dispach({type: 'setActiveStep', value: 1})
-      console.log('Deu bom')
-    }).catch(err => console.log('deu ruim'))
-    
-    
+      if(loading) setLoading(false)
+    }).catch(err => {
+      if(loading) setLoading(false)
+      console.log('deu ruim')
+    })
   }
+
 
   return(<>
     <Typography variant='h5'>Hello, start your register now! </Typography>
@@ -80,10 +83,11 @@ export default function User(){
         variant="contained"
         color="primary"
         className={submit}
+        disabled={loading}
         fullWidth
-        >Next 
+        >{loading ? (<CircularProgress size={24} />):(<>Next</>)}
         </Button>
-        
+      
       
       </Grid>
     </Form>

@@ -5,10 +5,11 @@ const INITIAL_STATE = {
   lastName: '',
   email: '',
   zipcode: '',
-  state: 'MA',
-  city: 'Codó',
+  state: '',
+  city: '',
   neighborhood: '',
   number: '',
+  street: '',
   activeStep: 0,
 }
 

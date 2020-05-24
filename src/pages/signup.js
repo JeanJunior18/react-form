@@ -2,13 +2,15 @@ import React from 'react';
 import { useSelector } from 'react-redux'
 import useStyles from '../styles/styles'
 import { Container, Box, Stepper, Step, StepLabel } from '@material-ui/core'
+
 import Copyright from '../components/page/copyright';
 import UserForm from '../components/signup/user';
 import AddressForm from '../components/signup/address';
+import FinallyForm from '../components/signup/finally';
 
 
 function getSteps(){
-  return ['Informações do Usuário', 'Informações de Endereço', 'Finalizar']
+  return ['User Infor', 'Address', 'Finish']
 }
   
 function getStepContent(stepIndex){
@@ -17,6 +19,8 @@ function getStepContent(stepIndex){
       return <UserForm />
     case 1: 
       return <AddressForm />
+    case 2: 
+      return <FinallyForm />
     default:
       return 'Não encontrado'
   }
@@ -39,7 +43,12 @@ export default function Signup() {
           </Step>
         ) )}
       </Stepper>
-      {getStepContent(activeStep)}
+      
+      {activeStep === steps.length ? (
+        <FinallyForm />
+      ):(
+        getStepContent(activeStep)
+      )}
 
       <Box mt={5}>
         <Copyright />

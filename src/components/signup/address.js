@@ -4,7 +4,6 @@ import useStyles from '../../styles/styles';
 import { Form } from '@unform/web';
 import Input from '../Unform/Input';
 import Select from '../Unform/Select'
-import cep from 'cep-promise';
 import { Button, Grid } from '@material-ui/core'
 import geoapi from '../../services/geoapi';
 
@@ -13,9 +12,10 @@ export default function User(){
 
   const { form, submit } = useStyles();
   const [estado, setEstado] = useState([]);
-  const [cities, setCities] = useState([])
-  const dispach = useDispatch()
-  const UF = useSelector(state => state.state)
+  const [cities, setCities] = useState([]);
+  const dispach = useDispatch();
+  const UF = useSelector(state => state.state);
+  const [loading, setLoading] = useState(false);
   
   
 
@@ -41,10 +41,18 @@ export default function User(){
     city: useSelector(state=> state.city),
     neighborhood: useSelector(state => state.neighborhood),
     street: useSelector(state => state.street),
+    number: useSelector(state => state.number)
   }
 
   function handleSubmit(data){
-    dispach({type: 'setActiveStep', value: 2})
+    console.log(data)
+    setLoading(true)
+    dispach({type: 'setState', value:data.state})
+    dispach({type: 'setCity', value:data.city})
+    dispach({type: 'setNeighborhood', value:data.neighborhood})
+    dispach({type: 'setStreet', value:data.street})
+    dispach({type: 'setNumber', value:data.number})
+    dispach({type: 'setActiveStep', value: 3})
     console.log(data)
   }
 
@@ -110,7 +118,7 @@ export default function User(){
           color="primary"
           className={submit}
           fullWidth
-          >Sign Up 
+          > Next
           </Button>
         </Grid>
         

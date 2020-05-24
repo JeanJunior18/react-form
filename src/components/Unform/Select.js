@@ -17,6 +17,7 @@ export default function UnformSelect({name, options, ...rest}){
 
   return (<>
     <TextField 
+    inputRef={inputRef}
     defaultValue={defaultValue} 
     variant='outlined'
     fullWidth
