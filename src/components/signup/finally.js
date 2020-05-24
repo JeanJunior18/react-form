@@ -2,9 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import useStyles from '../../styles/styles';
 import { Form } from '@unform/web';
-// import Input from '../Unform/Input';
-import { Typography, Button, Grid, Card, CardContent } from '@material-ui/core';
-// import sended from '../../assets/orderrequested.gif';
+import { Typography, Button, Grid, Card, CardContent, Box, Fade } from '@material-ui/core';
 
 
 export default function User(){
@@ -13,10 +11,8 @@ export default function User(){
   const { form, submit } = useStyles();
 
   const data = useSelector(state => state)
-  const { card } = useStyles()
 
-  return(<>
-    {/* <Typography variant='h5'>Jean, we are shipping your order ASAP</Typography> */}
+  return(<Fade in={true}>
     <Form className={form} >
 
       <Grid container spacing={2}>
@@ -25,15 +21,15 @@ export default function User(){
           <Typography variant='h5'>{data.firstName}, confirm your details and confirm your order</Typography>
         </Grid>
 
-        <Grid className={card} item xs={12} sm={10} variant='outlined'>
-          <Card>
+        <Box width='100%' >
+          <Card variant='outlined'>
             <CardContent>
               <Typography>Name: {data.firstName} {data.lastName}</Typography>
               <Typography>Address: {data.street}, {data.number} - {data.neighborhood}</Typography>
               <Typography>City: {data.city}, {data.state}</Typography>
             </CardContent>
           </Card>
-        </Grid>
+        </Box>
 
         <Grid item sm={6}>
           <Button
@@ -53,6 +49,7 @@ export default function User(){
           variant="contained"
           color="primary"
           className={submit}
+          onClick={()=>dispach({type: 'setActiveStep', value: 3})}
           fullWidth
           > Finish
           </Button>
@@ -60,5 +57,5 @@ export default function User(){
       
       </Grid>
     </Form>
-  </>)
+  </Fade>)
 }

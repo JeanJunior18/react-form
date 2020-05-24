@@ -7,6 +7,7 @@ import Copyright from '../components/page/copyright';
 import UserForm from '../components/signup/user';
 import AddressForm from '../components/signup/address';
 import FinallyForm from '../components/signup/finally';
+import SendedForm from '../components/signup/Sended';
 
 
 function getSteps(){
@@ -45,7 +46,7 @@ export default function Signup() {
       </Stepper>
       
       {activeStep === steps.length ? (
-        <FinallyForm />
+        <SendedForm />
       ):(
         getStepContent(activeStep)
       )}

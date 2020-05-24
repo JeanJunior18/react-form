@@ -42,8 +42,9 @@ export default function User(){
   }
 
 
-  return(<>
-    <Typography variant='h5'>Hello, start your register now! </Typography>
+  return(
+  <>
+    <Typography variant='h5' align='center'>Hello, start your register now! </Typography>
     <Form className={form} onSubmit={handleSubmit} initialData={data}>
 
       <Grid container spacing={2}>
@@ -68,6 +69,7 @@ export default function User(){
               variant="outlined"
               label="Email Address"
               name="email"
+              required
             />
         </Grid>
 
@@ -75,6 +77,7 @@ export default function User(){
           <Input
           name='zipcode'
           label='Zipcode'
+          required
           />
         </Grid>
 

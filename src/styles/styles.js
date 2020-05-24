@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
     alignSelf: 'center',
     justifyItems: 'center'
   },
+  text: {
+    margin: '100px',
+  }
 }));
 
 export default useStyles;

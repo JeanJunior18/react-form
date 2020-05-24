@@ -4,7 +4,7 @@ import useStyles from '../../styles/styles';
 import { Form } from '@unform/web';
 import Input from '../Unform/Input';
 import Select from '../Unform/Select'
-import { Button, Grid } from '@material-ui/core'
+import { Button, Grid, Typography, CircularProgress } from '@material-ui/core'
 import geoapi from '../../services/geoapi';
 
 
@@ -16,7 +16,7 @@ export default function User(){
   const dispach = useDispatch();
   const UF = useSelector(state => state.state);
   const [loading, setLoading] = useState(false);
-  
+
   
 
   useEffect(()=>{
@@ -25,7 +25,7 @@ export default function User(){
         setEstado(options)
       })
       getCity(UF)
-  },[])
+  },[UF])
 
   function getCity(UF){
     console.log(UF)
@@ -45,20 +45,19 @@ export default function User(){
   }
 
   function handleSubmit(data){
-    console.log(data)
     setLoading(true)
     dispach({type: 'setState', value:data.state})
     dispach({type: 'setCity', value:data.city})
     dispach({type: 'setNeighborhood', value:data.neighborhood})
     dispach({type: 'setStreet', value:data.street})
     dispach({type: 'setNumber', value:data.number})
-    dispach({type: 'setActiveStep', value: 3})
-    console.log(data)
+    dispach({type: 'setActiveStep', value: 2})
   }
 
-  return(
+  return(<>
+    <Typography variant='h5' align='center'>Enter your address</Typography>
     <Form className={form} onSubmit={handleSubmit} initialData={address}>
-
+      
       <Grid container spacing={2}>
 
         <Grid item xs={12}>
@@ -67,6 +66,7 @@ export default function User(){
           options={estado}
           name='state'
           label='State'
+          required
           />
         </Grid>
 
@@ -75,6 +75,7 @@ export default function User(){
           name='city'
           label='City'
           options={cities}
+          required
           />
         </Grid>
 
@@ -82,6 +83,7 @@ export default function User(){
           <Input
           name='neighborhood'
           label='Neighborhood'
+          required
           />
         </Grid>
 
@@ -89,6 +91,7 @@ export default function User(){
           <Input
           name='street'
           label='Street'
+          required
           />
         </Grid>
 
@@ -96,6 +99,7 @@ export default function User(){
           <Input
           name='number'
           label='Number'
+          required
           />
         </Grid>
 
@@ -118,7 +122,8 @@ export default function User(){
           color="primary"
           className={submit}
           fullWidth
-          > Next
+          disabled={loading}
+          > {loading ? (<CircularProgress size={24} />):(<>Next</>)}
           </Button>
         </Grid>
         
@@ -126,5 +131,5 @@ export default function User(){
       
       </Grid>
     </Form>
-  )
+  </>)
 }
