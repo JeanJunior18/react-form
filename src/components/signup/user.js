@@ -4,14 +4,17 @@ import useStyles from '../../styles/styles';
 import { Form } from '@unform/web';
 import Input from '../Unform/Input';
 import cep from 'cep-promise';
-import { Typography, Button, Grid, CircularProgress } from '@material-ui/core'
-
+import { Typography, Button, Grid, CircularProgress, Snackbar } from '@material-ui/core';
+import Alert from '../Unform/Alert';
 
 export default function User(){
+
+  
 
   const dispach = useDispatch()
   const { form, submit } = useStyles();
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const data = {
     firstName: useSelector(state => state.firstName),
@@ -36,8 +39,8 @@ export default function User(){
       dispach({type: 'setActiveStep', value: 1})
       if(loading) setLoading(false)
     }).catch(err => {
-      if(loading) setLoading(false)
-      console.log('deu ruim')
+      setLoading(false)
+      setOpen(true)
     })
   }
 
@@ -80,6 +83,13 @@ export default function User(){
           required
           />
         </Grid>
+        <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        message="CPF Inválido"
+      >
+        <Alert severity='error'>Invalid Zipcode</Alert>
+      </Snackbar>
 
         <Button
         type="submit"

@@ -5,6 +5,7 @@
   "description": "Login system to practice the use of technologies such as React, Redux, cep-promise, unform, materialize UI and others.",
   "dependencies": {
     "@material-ui/core": "^4.9.14",
+    "@material-ui/lab": "^4.0.0-alpha.54",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
